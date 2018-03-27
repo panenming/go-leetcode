@@ -9,19 +9,42 @@ func combine(mis, njs []int) []int {
 	lenMis, i := len(mis), 0
 	lenNjs, j := len(njs), 0
 
-	res := make([]int, lenMis+lenNjs)
+	res := make([]int, 0)
+	count := lenMis + lenNjs
+	for k := 0; ; {
 
-	for k := 0; k < lenMis+lenNjs; k++ {
+		if k == count {
+			break
+		}
+
 		if i == lenMis ||
 			(i < lenMis && j < lenNjs && mis[i] > njs[j]) {
-			res[k] = njs[j]
+			// 防止出现重复数字
+			if k == 0 {
+				res = append(res, njs[j])
+				k++
+			} else if res[k-1] < njs[j] {
+				res = append(res, njs[j])
+				k++
+			} else {
+				count--
+			}
 			j++
 			continue
 		}
 
 		if j == lenNjs ||
 			(i < lenMis && j < lenNjs && mis[i] <= njs[j]) {
-			res[k] = mis[i]
+			// 防止出现重复数字
+			if k == 0 {
+				res = append(res, mis[i])
+				k++
+			} else if res[k-1] < mis[i] {
+				res = append(res, mis[i])
+				k++
+			} else {
+				count--
+			}
 			i++
 		}
 	}
