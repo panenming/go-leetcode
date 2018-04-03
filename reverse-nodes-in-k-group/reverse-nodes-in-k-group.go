@@ -13,7 +13,7 @@ func needReverse(head *ListNode, k int) (begin *ListNode, ok bool) {
 	for head != nil {
 		if k == 1 {
 			begin = head.Next
-			// 把前k与后面的节点斩断, 便于reverse
+			// 把前k与后面的节点斩断, 便于reverse (重要)
 			head.Next = nil
 			return begin, true
 		}
