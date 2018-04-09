@@ -35,3 +35,34 @@ func makePermutation(cur, n int, nums, vector []int, taken []bool, ans *[][]int)
 		}
 	}
 }
+
+// 出现重复数的时候使用该方法
+func makePermutation2(cur, n int, nums, vector []int, taken []bool, ans *[][]int) {
+	if cur == n {
+		tmp := make([]int, n)
+		copy(tmp, vector)
+		*ans = append(*ans, tmp)
+		return
+	}
+
+	used := make(map[int]bool, n-cur)
+
+	for i := 0; i < n; i++ {
+
+		if !taken[i] && !used[nums[i]] {
+			used[nums[i]] = true
+
+			// 准备使用 nums[i]，所以，taken[i] == true
+			taken[i] = true
+			// NOTICE: 是 vector[cur]
+			vector[cur] = nums[i]
+
+			makePermutation(cur+1, n, nums, vector, taken, ans)
+
+			// 下一个循环中
+			// vector[cur] = nums[i+1]
+			// 所以，在这个循环中，恢复 nums[i] 自由
+			taken[i] = false
+		}
+	}
+}
