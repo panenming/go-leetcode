@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Problem0099(t *testing.T) {
+func Test_OK(t *testing.T) {
 	ast := assert.New(t)
 
 	// tcs is testcase slice
